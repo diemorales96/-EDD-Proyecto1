@@ -8,7 +8,7 @@ void Lista_Doble::insertar(string id_transaccion, string id_activo_, string usua
 {
 	Nodo_Lista* nuevo = new Nodo_Lista(id_transaccion,id_activo_,usuario,departamento,empresa,fecha ,dias);
 
-	if (tamanio == 0)
+	if (tamaniolista == 0)
 	{
 		cabeza = nuevo;
 		cabeza->Siguiente = nuevo;

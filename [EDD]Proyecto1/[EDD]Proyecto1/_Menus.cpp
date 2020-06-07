@@ -4,6 +4,10 @@
 #include <string>
 #include <algorithm>
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 using namespace std;
 
 void _Menus::MenuPrincipal() 
@@ -116,4 +120,16 @@ string _Menus::comparar(string usuario)
 	});
 	
 	return usuario;
+}
+
+int _Menus::rangoaleatorio(int min, int max) {
+	return min + rand() / (RAND_MAX / (max - min + 1) + 1);
+}
+
+void _Menus::cadaleatoria(int Longitud, char *Destino) {
+	char Muestra[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+	for (int x = 0; x < Longitud; x++) {
+		int indiceAleatorio = rangoaleatorio(0, (int)strlen(Muestra) - 1);
+		Destino[x] = Muestra[indiceAleatorio];
+	}
 }

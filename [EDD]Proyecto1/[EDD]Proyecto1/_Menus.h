@@ -9,5 +9,7 @@ public:
 	void Menuadmin();
 	void MenuRegistro();
 	string comparar(string);
+	int rangoaleatorio(int min, int max);
+	void cadaleatoria(int Longitud, char *Destino);
 };
 
