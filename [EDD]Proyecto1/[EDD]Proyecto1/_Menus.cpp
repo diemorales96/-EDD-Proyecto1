@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include "Matriz.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -78,8 +79,9 @@ void _Menus::Menuadmin()
 	cout << ">> %% 6. Reporte Activos de un Usuario" << endl;
 	cout << ">> %% 7. Activos rentados por un Usuario" << endl;
 	cout << ">> %% 8. Ordenar Transacciones" << endl;
-	
+	cout << "Ingrese opcion\n >>";
 	int opcion = 0;
+	cin >> opcion;
 
 	switch (opcion)
 	{
@@ -109,7 +111,8 @@ void _Menus::MenuRegistro()
 	cin >> departamento;
 	cout << endl << endl << "...Ingrese Empresa..." << endl << " >> ";
 	cin >> empresa;
-
+	Matriz* Objeto = new Matriz();
+	Objeto->InsertarElmento(usuario, 1, contrasena, empresa, departamento);
 	system("pause");
 }
 

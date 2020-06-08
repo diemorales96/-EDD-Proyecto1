@@ -152,12 +152,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Lista_Doble.h" />
+    <ClInclude Include="Matriz.h" />
+    <ClInclude Include="NodoMatriz.h" />
     <ClInclude Include="Nodo_Lista.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="_Menus.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Lista_Doble.cpp" />
+    <ClCompile Include="Matriz.cpp" />
+    <ClCompile Include="NodoMatriz.cpp" />
     <ClCompile Include="Nodo_Lista.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
