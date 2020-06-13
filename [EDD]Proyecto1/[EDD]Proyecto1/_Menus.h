@@ -11,5 +11,6 @@ public:
 	string comparar(string);
 	int rangoaleatorio(int min, int max);
 	void cadaleatoria(int Longitud, char *Destino);
+	void ReporteMDispersa();
 };
 

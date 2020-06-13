@@ -2,7 +2,7 @@
 #include "Matriz.h"
 #include "NodoMatriz.h"
 #include <iostream>
-
+#include <string>
 using namespace std;
 
 void Matriz::InsertarElmento(string usuario, int numero, string contrasena, string empresa, string departamento)
@@ -258,3 +258,100 @@ bool Matriz::VerificarDepartamento(string depa, NodoMatriz* inicio, NodoMatriz*U
 	return false;
 }
 
+void Matriz::graficar()
+{
+	FILE *file;
+	file = fopen("MatrizDispersa.dot", "w+");
+	fprintf(file, "digraph Matriz{ \n");
+	fprintf(file, "node [shape=box]\ngraph[ranksep = \"0.5\", nodesep=\"0.6\"];\n");
+	generarDot(file,cabecera);
+	fprintf(file,"\n}");
+	fclose(file);
+	system("dot -Tpng MatrizDispersa.dot -o MatrizDispersa.png");
+	system("start E:\\Materias\\EDD\\Proyectos\\[EDD]Proyecto1\\[EDD]Proyecto1\\MatrizDispersa.png");
+
+}
+
+void Matriz::generarDot(FILE *file,NodoMatriz *n)
+{
+	NodoMatriz* aux = n;
+	string label;
+	NodoMatriz* fila = cabecera->Abajo;
+	const char* clabel = label.c_str();
+	label = cabecera->nombre + "[ label = \"" + cabecera->nombre + "\", width = 1.5," +" style = filled, fillcolor = coral, group = 0 ];\n\n";
+	clabel = label.c_str();
+	fprintf(file, clabel);
+	label = "";
+	while (fila != NULL) {
+		label += "Fila" + fila->nombre + " [label = \"" + fila->nombre + "\" width = 1.5";
+		label += " style = filled, fillcolor = bisque1, group = 0 ];\n";
+		fila = fila->Abajo;
+	}
+
+	label += "\n //Enlaces de Filas\n";
+	fila = cabecera->Abajo;
+	while (fila != NULL) {
+		if (fila->Abajo != NULL) {
+			label += "Fila" + fila->nombre + "->Fila" + fila->Abajo->nombre + " [dir = both];\n";
+		}
+		fila = fila->Abajo;
+	}
+
+	label += "\n //Columnas\n";
+	label += "//Cada una con diferente group para alinear verticalmente con los nodos\n";
+	NodoMatriz* col = cabecera->Siguiente;
+	while (col != NULL) {
+		label += "Column" + col->nombre + "[label = \"" + col->nombre + "\" width = 1.5";
+		label += " style = filled, fillcolor = pink2, group = " + col->nombre + "];\n";
+		col = col->Siguiente;
+	}
+
+
+	label+= "\n //Enlaces de Columnas\n";
+	col = cabecera->Siguiente;
+	while (col != NULL) {
+		if (col->Siguiente != NULL) {
+			label += "Column" + col->nombre + "->Column" + col->Siguiente->nombre + " [dir = both];\n";
+		}
+		col = col->Siguiente;
+	}
+
+	col = cabecera->Siguiente;
+	label += "\n // Alinear Raiz con Columnas\n";
+	label += "{rank = same; " + cabecera->nombre + ";";
+	while (col != NULL) {
+		label += " Column" + col->nombre + "; ";
+		col = col->Siguiente;
+	}
+	label+= "};\n";
+	label += "\n // Enlaces Raiz con primera fila y columna\n";
+	label += cabecera->nombre + "->Column" + cabecera->Siguiente->nombre + ";\n";
+	label += cabecera->nombre + "->Fila" + cabecera->Abajo->nombre + ";\n";
+
+
+	label += "\n //Creacion de nodos\n";
+	fila = cabecera->Abajo;
+	NodoMatriz *filaaux = fila;
+	string group = "";
+	NodoMatriz *colaux;
+	while (fila != NULL) {
+		label += "//(^<---------------------- F I L A   " + fila->nombre + "---------------------->\n";
+		col = fila->Siguiente;
+		colaux = cabecera->Siguiente;
+		while (col != NULL) {
+			group = colaux->nombre; 
+			label += "N" + colaux->nombre + "_F" + filaaux->nombre + " [label = ";
+			label += "\"" + col->nombre + "\" width = 1.5 group = " + group + " style = filled, fillcolor = lavenderblush1];\n";
+			col = col->Siguiente;
+			colaux = colaux->Siguiente;
+		}
+		fila = fila->Abajo;
+		filaaux = filaaux->Abajo;
+		label += "\n";
+	}
+
+	//NO TOCAR DE ACA PARA ARRIBA FUNCIONA BIEN
+
+	clabel = label.c_str();
+	fprintf(file, clabel);
+}

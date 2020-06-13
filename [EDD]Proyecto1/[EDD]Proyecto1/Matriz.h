@@ -20,5 +20,8 @@ public:
 
 	bool VerificarEmpresa(string empresa, NodoMatriz* incio, NodoMatriz* Usr);
 	bool VerificarDepartamento(string depa, NodoMatriz* incio, NodoMatriz* Usr);
+
+	void graficar();
+	void generarDot(FILE *file, NodoMatriz *cabeza);
 };
 

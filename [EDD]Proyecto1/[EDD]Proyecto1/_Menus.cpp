@@ -79,6 +79,7 @@ void _Menus::Menuadmin()
 	cout << ">> %% 6. Reporte Activos de un Usuario" << endl;
 	cout << ">> %% 7. Activos rentados por un Usuario" << endl;
 	cout << ">> %% 8. Ordenar Transacciones" << endl;
+	cout << ">> %% 9. Cerrar sesion" << endl;
 	cout << "Ingrese opcion\n >>";
 	int opcion = 0;
 	cin >> opcion;
@@ -88,10 +89,13 @@ void _Menus::Menuadmin()
 	case 1:
 		MenuRegistro();
 		break;
+	case 2:
+		ReporteMDispersa();
+		break;
 	}
 	system("pause");
 }
-
+Matriz* Objeto = new Matriz();
 void _Menus::MenuRegistro() 
 {
 	system("cls");
@@ -105,16 +109,26 @@ void _Menus::MenuRegistro()
 	cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   Crear Usuario  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n" << endl << " >> ...";
 	cout << "Ingrese Usuario..." << endl << " >> ";
 	cin >> usuario;
-	cout << endl << endl << "...Ingrese Contraseña..." << endl << " >> ";
+	cout << endl << endl << "...Ingrese Contrasena..." << endl << " >> ";
 	cin >> contrasena;
 	cout << endl << endl << "...Ingrese Departamento..." << endl << " >> ";
 	cin >> departamento;
 	cout << endl << endl << "...Ingrese Empresa..." << endl << " >> ";
 	cin >> empresa;
-	Matriz* Objeto = new Matriz();
 	Objeto->InsertarElmento(usuario, 1, contrasena, empresa, departamento);
+	Menuadmin();
 	system("pause");
 }
+
+//Reporte de matriz dispersa
+
+void _Menus::ReporteMDispersa()
+{
+	Objeto->graficar();
+	Menuadmin();
+}
+
+//Metodo para convertir de mayusculas a minusculas
 
 string _Menus::comparar(string usuario) 
 {
@@ -124,6 +138,8 @@ string _Menus::comparar(string usuario)
 	
 	return usuario;
 }
+
+//Metodo para contraseñas alfanumericas aleatorias
 
 int _Menus::rangoaleatorio(int min, int max) {
 	return min + rand() / (RAND_MAX / (max - min + 1) + 1);
