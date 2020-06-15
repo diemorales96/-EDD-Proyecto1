@@ -12,5 +12,6 @@ public:
 	int rangoaleatorio(int min, int max);
 	void cadaleatoria(int Longitud, char *Destino);
 	void ReporteMDispersa();
+	void MenuUsuario(string,string,string,string);
 };
 

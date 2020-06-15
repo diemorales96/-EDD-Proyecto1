@@ -4,12 +4,19 @@
 #include <string>
 #include <algorithm>
 #include "Matriz.h"
-
+#include "Arbol.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+ 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 using namespace std;
+
+Matriz* Objeto = new Matriz();
+Arbol * ObjetoArbol = new Arbol();
 
 void _Menus::MenuPrincipal() 
 {
@@ -64,6 +71,16 @@ void _Menus::MenuLogin()
 		cin >> departamento;
 		cout << endl << endl << "...Ingrese Empresa..." << endl << " >> ";
 		cin >> empresa;
+		
+		if (Objeto->Buscarusuario(usuario, contrasena, departamento, empresa) != NULL)
+		{
+			MenuUsuario(usuario,contrasena,departamento,empresa);
+		}
+		else
+		{
+			cout << "Usuario no encontrado";
+			MenuLogin();
+		}
 	}
 }
 
@@ -92,10 +109,12 @@ void _Menus::Menuadmin()
 	case 2:
 		ReporteMDispersa();
 		break;
+	case 9:
+		MenuLogin();
 	}
 	system("pause");
 }
-Matriz* Objeto = new Matriz();
+
 void _Menus::MenuRegistro() 
 {
 	system("cls");
@@ -117,6 +136,43 @@ void _Menus::MenuRegistro()
 	cin >> empresa;
 	Objeto->InsertarElmento(usuario, 1, contrasena, empresa, departamento);
 	Menuadmin();
+	system("pause");
+}
+
+
+void _Menus::MenuUsuario(string usuario,string contrasena,string dep,string emp)
+{
+	system("cls");
+	cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% "<< usuario <<" %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n";
+	cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 1. Agregar Activo %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n";
+
+	int opcion = 0;
+	cin >> opcion;
+	string id;
+	string nombre;
+	string des;
+
+	do
+	{
+		switch (opcion)
+		{
+		case 1: 
+			cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Agregar Activo %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n";
+			#define LONGITUD_DESEADA 15
+			char destino[LONGITUD_DESEADA + 1] = "";
+			cadaleatoria(LONGITUD_DESEADA, destino);
+			id = destino;
+			cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ...Ingrese Nombre... %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n";
+			cin >> nombre;
+			cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ...Ingrese Descripcion... %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n";
+			cin >> des;
+			NodoMatriz* aux;
+			aux = Objeto->Buscarusuario(usuario, contrasena, dep, emp);
+			ObjetoArbol->insertarNodo(aux->AVL,id,nombre,des,NULL);
+
+			break;
+		}
+	} while (opcion != 2);
 	system("pause");
 }
 

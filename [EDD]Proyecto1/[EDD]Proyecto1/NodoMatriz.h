@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-
+#include "Arbol.h"
 using namespace std;
 
 class NodoMatriz
@@ -12,6 +12,8 @@ public:
 	NodoMatriz *Abajo;
 	NodoMatriz *Adelante;
 	NodoMatriz *Atras;
+	NodoArbol * AVL;
+
 
 	int numero;
 	string nombre;
@@ -24,6 +26,7 @@ public:
 		Abajo = nullptr;
 		Adelante = nullptr;
 		Atras = nullptr;
+		AVL = new NodoArbol();
 
 		nombre = dato1;
 		numero = dato2;

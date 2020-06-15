@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include<string>
 #include "NodoMatriz.h"
 
 using namespace std;
@@ -23,5 +24,10 @@ public:
 
 	void graficar();
 	void generarDot(FILE *file, NodoMatriz *cabeza);
+
+	NodoMatriz* Buscarusuario(string usuario,string contrasena,string departamento,string empresa);
+
+
+	string comparar(string);
 };
 

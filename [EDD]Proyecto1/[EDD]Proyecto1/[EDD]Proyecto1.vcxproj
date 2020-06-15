@@ -151,16 +151,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Arbol.h" />
     <ClInclude Include="Lista_Doble.h" />
     <ClInclude Include="Matriz.h" />
+    <ClInclude Include="NodoArbol.h" />
     <ClInclude Include="NodoMatriz.h" />
     <ClInclude Include="Nodo_Lista.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="_Menus.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Arbol.cpp" />
     <ClCompile Include="Lista_Doble.cpp" />
     <ClCompile Include="Matriz.cpp" />
+    <ClCompile Include="NodoArbol.cpp" />
     <ClCompile Include="NodoMatriz.cpp" />
     <ClCompile Include="Nodo_Lista.cpp" />
     <ClCompile Include="pch.cpp">
