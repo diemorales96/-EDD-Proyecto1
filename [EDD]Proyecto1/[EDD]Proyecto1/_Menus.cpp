@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
- 
+#include "Lista_Doble.h" 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -45,7 +45,7 @@ void _Menus::MenuPrincipal()
 void _Menus::MenuLogin() 
 {
 	system("cls");
-	int opcion;
+	
 	string usuario;
 	string aux;
 	string contrasena;
@@ -145,18 +145,28 @@ void _Menus::MenuUsuario(string usuario,string contrasena,string dep,string emp)
 	system("cls");
 	cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% "<< usuario <<" %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n";
 	cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 1. Agregar Activo %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n";
+	cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 2. Eliminar Activo %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n";
+	cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 3. Modificar Activo %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n";
+	cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 4. Rentar Activo  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n";
+	cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 5. Activos Rentados  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n";
+	cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 6. Mis Activos Rentados %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n";
+	cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 7. Cerrar Sesion  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n";
+
+
 
 	int opcion = 0;
 	cin >> opcion;
 	string id;
 	string nombre;
 	string des;
-
+	NodoMatriz* aux;
+	aux = Objeto->Buscarusuario(usuario, contrasena, dep, emp);
 	do
 	{
 		switch (opcion)
 		{
-		case 1: 
+		case 1: {
+			system("cls");
 			cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Agregar Activo %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n";
 			#define LONGITUD_DESEADA 15
 			char destino[LONGITUD_DESEADA + 1] = "";
@@ -166,14 +176,63 @@ void _Menus::MenuUsuario(string usuario,string contrasena,string dep,string emp)
 			cin >> nombre;
 			cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ...Ingrese Descripcion... %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n";
 			cin >> des;
-			NodoMatriz* aux;
-			aux = Objeto->Buscarusuario(usuario, contrasena, dep, emp);
 			ObjetoArbol->insertarNodo(aux->AVL,id,nombre,des,NULL);
-
+			MenuUsuario(usuario,contrasena,dep,emp);
 			break;
 		}
-	} while (opcion != 2);
-	system("pause");
+		case 2:
+			{
+			system("cls");
+			cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Eliminar Activo %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n";
+			ObjetoArbol->preorden(aux->AVL);
+			cout << "\nIngrese id del activo: \n";
+			cin >> id;
+			ObjetoArbol->eliminar(aux->AVL, id);
+			cout << "Activo Eliminado ID : "<<id;
+			MenuUsuario(usuario, contrasena, dep, emp);
+			break;
+		}
+		case 3:
+		{
+			system("cls");
+			cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Modificar Activo %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n";
+			ObjetoArbol->preorden(aux->AVL);
+			cout << "\nIngrese id del activo: \n";
+			cin >> id;
+			system("cls");
+			cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Modificando Activo %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n";
+
+			cout << "\nIngrese nueva descripcion del activo: \n";
+			cin >> des;
+			ObjetoArbol->Modificar(aux->AVL,id,des);
+			system("pause");
+			MenuUsuario(usuario, contrasena, dep, emp);
+		}
+		case 4:
+		{
+			system("cls");
+			Objeto->Buscarusuario(usuario);
+			int opcion2 = 0;
+			cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 1. Rentar Activo %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n";
+			cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 2. Regresar al menu %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n";
+			cout << "Ingrese Opcion: \n";
+			cin >> opcion2;
+			switch (opcion2)
+			{
+			case 1:
+			{
+				
+				cout << "Ingrese Activo a rentar: \n";
+				cin >> id;
+
+			}
+			}
+
+			system("pause");
+		}
+		}
+	} while (opcion != 7);
+	MenuLogin();
 }
 
 //Reporte de matriz dispersa

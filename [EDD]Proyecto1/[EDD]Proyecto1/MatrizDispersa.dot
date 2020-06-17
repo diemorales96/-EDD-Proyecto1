@@ -1,0 +1,50 @@
+digraph Matriz{ 
+node [shape=box]
+graph[ranksep = "0.5", nodesep="0.6"];
+admin[ label = "admin", width = 1.5, style = filled, fillcolor = coral, group = 0 ];
+
+Filab1 [label = "b1" width = 1.5 style = filled, fillcolor = bisque1, group = 0 ];
+Filab2 [label = "b2" width = 1.5 style = filled, fillcolor = bisque1, group = 0 ];
+
+ //Enlaces de Filas
+Filab1->Filab2 [dir = both];
+
+ //Columnas
+//Cada una con diferente group para alinear verticalmente con los nodos
+Columna1[label = "a1" width = 1.5 style = filled, fillcolor = pink2, group = a1];
+Columna2[label = "a2" width = 1.5 style = filled, fillcolor = pink2, group = a2];
+
+ //Enlaces de Columnas
+Columna1->Columna2 [dir = both];
+
+ // Alinear Raiz con Columnas
+{rank = same; admin; Columna1;  Columna2; };
+
+ // Enlaces Raiz con primera fila y columna
+admin->Columna1;
+admin->Filab1;
+
+ //Creacion de nodos
+//(^<---------------------- F I L A   b1---------------------->
+Na1_Fb1 [label = "p1" width = 1.5 group = a1 style = filled, fillcolor = lavenderblush1];
+
+//(^<---------------------- F I L A   b2---------------------->
+Na2_Fb2 [label = "p2" width = 1.5 group = a2 style = filled, fillcolor = lavenderblush1];
+
+
+ //Creacion de enlaces de nodos
+//E N L A C E S  F I L A   b1
+Columna1->Na1_Fb1 [dir = both];
+Filab1->Na1_Fb1 [dir = both];
+//Alineacion vertical de nodos con la fila
+{rank = same; Filab1; Na1_Fb1;  };
+
+//E N L A C E S  F I L A   b2
+Columna2->Na2_Fb2 [dir = both];
+Filab2->Na2_Fb2 [dir = both];
+//Alineacion vertical de nodos con la fila
+{rank = same; Filab2; Na2_Fb2;  };
+
+}
+
+}

@@ -18,6 +18,7 @@ public:
 	NodoMatriz* CrearDepartamento(string departamento);
 	NodoMatriz* BuscarEmpresa(string empresa, NodoMatriz* inicio);
 	NodoMatriz* BuscarDepa(string departamento, NodoMatriz* inicio);
+	
 
 	bool VerificarEmpresa(string empresa, NodoMatriz* incio, NodoMatriz* Usr);
 	bool VerificarDepartamento(string depa, NodoMatriz* incio, NodoMatriz* Usr);
@@ -26,7 +27,7 @@ public:
 	void generarDot(FILE *file, NodoMatriz *cabeza);
 
 	NodoMatriz* Buscarusuario(string usuario,string contrasena,string departamento,string empresa);
-
+	void Buscarusuario(string);
 
 	string comparar(string);
 };

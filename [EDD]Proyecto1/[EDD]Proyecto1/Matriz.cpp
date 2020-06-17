@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include "Arbol.h"
 using namespace std;
 
 void Matriz::InsertarElmento(string usuario, int numero, string contrasena, string empresa, string departamento)
@@ -348,10 +349,9 @@ void Matriz::generarDot(FILE *file,NodoMatriz *n)
 			label += "N" + colaux->nombre + "_F" + fila->nombre + " [label = ";
 			label += "\"" + col->nombre + "\" width = 1.5 group = " + group + " style = filled, fillcolor = lavenderblush1];\n";
 			col = col->Siguiente;
-			colaux = colaux->Siguiente;
+			
 		}
 		fila = fila->Abajo;
-		filaaux = filaaux->Abajo;
 		label += "\n";
 	}
 
@@ -403,14 +403,20 @@ void Matriz::generarDot(FILE *file,NodoMatriz *n)
 			}
 
 			colaux = col;
+			NodoMatriz* colaux2;
 			while (colaux->Arriba != NULL) {
 				colaux = colaux->Arriba;
 			}
+			
 			if (col->Siguiente != NULL) {
 				//Si existe un nodo a la derecha, Enlazarlo con el actual.
 				//escribir ej: N1_L0->N2_L0[dir = both]; //Derecha
+				colaux2 = col->Siguiente;
+				while (colaux2->Arriba != NULL) {
+					colaux2 = colaux2->Arriba;
+				}
 				label += "N" + colaux->nombre + "_F" + filaaux->nombre +
-					"->N" + colaux->Siguiente->nombre + "_F" + filaaux->nombre;
+					"->N" + colaux2->nombre + "_F" + filaaux->nombre;
 				label += " [dir = both];\n";
 			}
 			col = col->Siguiente;
@@ -420,9 +426,14 @@ void Matriz::generarDot(FILE *file,NodoMatriz *n)
 		label += "{rank = same; Fila" + filaaux->nombre + "; ";
 		colaux = cabecera->Siguiente;
 		while (col != NULL) {
+			colaux = col;
+			while (colaux->Arriba!=NULL)
+			{
+				colaux = colaux->Arriba;
+			}
 			label += "N" + colaux->nombre + "_F" + filaaux->nombre+ "; ";
 			col = col->Siguiente;
-			colaux = colaux->Siguiente;
+			
 		}
 		label += " };\n\n";
 		fila = fila->Abajo;
@@ -479,13 +490,63 @@ NodoMatriz* Matriz::Buscarusuario(string nombre, string cont, string dep, string
 
 		}
 		
-		fila = fila->Siguiente;
+		fila = fila->Abajo;
 	}
 	return NULL;
 }
 
 
+void Matriz::Buscarusuario(string usuario)
+{
+	NodoMatriz* fila = cabecera->Abajo;
+	Arbol *objetoArbol = new Arbol();
+	while (fila != NULL)
+	{
+		NodoMatriz* col = fila->Siguiente;
+		while (col != NULL)
+		{
+			NodoMatriz* prof = col;
+			NodoMatriz *colaux = col;
 
+			while (colaux->Arriba != NULL)
+			{
+				colaux = colaux->Arriba;
+			}
+
+			if (col->Atras != NULL)
+			{
+				while (prof != NULL)
+				{
+					if (prof->AVL && prof->nombre !=usuario)
+					{
+						objetoArbol->preorden(prof->AVL);
+						prof = prof->Atras;
+					}
+					else
+					{
+						prof = prof->Atras;
+					}
+				}
+			}
+			else
+			{
+				if (col->AVL && col->nombre != usuario)
+				{
+					objetoArbol->preorden(col->AVL);
+					col = col->Siguiente;
+				}
+				else
+				{
+					col = col->Siguiente;
+				}
+			}
+
+		}
+
+		fila = fila->Abajo;
+	}
+	
+}
 
 //Metodo para convertir de mayusculas a minusculas
 

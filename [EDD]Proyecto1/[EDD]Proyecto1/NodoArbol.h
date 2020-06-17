@@ -8,6 +8,7 @@ public:
 	string id;
 	string nombre;
 	string des;
+	int disponibilidad;
 	NodoArbol* izq;
 	NodoArbol* der;
 	NodoArbol *padre;
@@ -16,6 +17,7 @@ public:
 		id = "";
 		nombre = "";
 		des = "";
+		disponibilidad = 1;
 		izq = NULL;
 		der = NULL;
 		padre = NULL;

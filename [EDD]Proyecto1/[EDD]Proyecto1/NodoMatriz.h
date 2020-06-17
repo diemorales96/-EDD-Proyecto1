@@ -26,7 +26,7 @@ public:
 		Abajo = nullptr;
 		Adelante = nullptr;
 		Atras = nullptr;
-		AVL = new NodoArbol();
+		AVL = nullptr;
 
 		nombre = dato1;
 		numero = dato2;
