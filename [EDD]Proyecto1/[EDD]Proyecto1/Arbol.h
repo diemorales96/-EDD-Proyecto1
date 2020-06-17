@@ -13,6 +13,7 @@ public:
 	NodoArbol * Buscar(NodoArbol *,string);
 	void Modificar(NodoArbol *&, string, string);
 	void preorden(NodoArbol *);
+	NodoArbol * devolverAux();
 
 	void graficar();
 	void obtenerDot(FILE *file, NodoArbol *cabeza);

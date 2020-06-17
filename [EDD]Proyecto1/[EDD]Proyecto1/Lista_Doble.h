@@ -13,7 +13,7 @@ public:
 		this -> cabeza = nullptr;
 		this->tamaniolista = 0;
 	}
-	void insertar(string id_transaccion,string id_activo_,string usuario,string departamento,string empresa, string fecha,int dias);
+	void insertar(string ,string ,string ,string,string ,string ,string ,int );
 	void Mostrar();
 	int tamanio();
 

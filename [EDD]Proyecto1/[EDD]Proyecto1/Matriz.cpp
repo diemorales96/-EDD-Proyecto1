@@ -5,8 +5,10 @@
 #include <string>
 #include <algorithm>
 #include "Arbol.h"
+#include "Lista_Doble.h"
 using namespace std;
-
+Arbol *objetoArbol = new Arbol();
+Lista_Doble *objetoLista = new Lista_Doble();
 void Matriz::InsertarElmento(string usuario, int numero, string contrasena, string empresa, string departamento)
 {
 	NodoMatriz* NodoUsr;
@@ -267,7 +269,6 @@ void Matriz::graficar()
 	fprintf(file, "digraph Matriz{ \n");
 	fprintf(file, "node [shape=box]\ngraph[ranksep = \"0.5\", nodesep=\"0.6\"];\n");
 	generarDot(file,cabecera);
-	fprintf(file,"\n}");
 	fclose(file);
 	system("dot -Tpng MatrizDispersa.dot -o MatrizDispersa.png");
 	system("start E:\\Materias\\EDD\\Proyectos\\[EDD]Proyecto1\\[EDD]Proyecto1\\MatrizDispersa.png");
@@ -499,7 +500,7 @@ NodoMatriz* Matriz::Buscarusuario(string nombre, string cont, string dep, string
 void Matriz::Buscarusuario(string usuario)
 {
 	NodoMatriz* fila = cabecera->Abajo;
-	Arbol *objetoArbol = new Arbol();
+	
 	while (fila != NULL)
 	{
 		NodoMatriz* col = fila->Siguiente;
@@ -548,6 +549,106 @@ void Matriz::Buscarusuario(string usuario)
 	
 }
 
+void Matriz::Renta(string ident, int dias)
+{
+	NodoMatriz* fila = cabecera->Abajo;
+
+	while (fila != NULL)
+	{
+		NodoMatriz* col = fila->Siguiente;
+		while (col != NULL)
+		{
+			NodoMatriz* prof = col;
+			NodoMatriz *colaux = col;
+
+			while (colaux->Arriba != NULL)
+			{
+				colaux = colaux->Arriba;
+			}
+
+			if (col->Atras != NULL)
+			{
+				while (prof != NULL)
+				{
+					if (prof->AVL!=NULL)
+					{
+						NodoArbol * aux = (objetoArbol->Buscar(prof->AVL, ident));
+						NodoArbol * aux2 = objetoArbol->devolverAux();
+						if ((aux!= NULL) && (aux2 !=NULL))
+						{
+							string id_trans;
+							string id = ident;
+							string activo;
+							string desc;
+							string usuario;
+							string dep;
+							string emp;
+							int dia = dias;
+							#define LONGITUD_DESEADA 15
+							char destino[LONGITUD_DESEADA + 1] = "";
+							cadaleatoria(LONGITUD_DESEADA, destino);
+							id_trans = destino;
+							activo = aux->nombre;
+							desc = aux->des;
+							aux->disponibilidad = 0;
+							usuario = prof->nombre;
+							dep = colaux->nombre;
+							emp = fila->nombre;
+							objetoLista->insertar(id_trans,id,activo,desc,usuario,dep,emp,dia);
+							cout << "Insertado con exito";
+							system("pause");
+							break;
+						}
+					}
+					else
+					{
+						prof = prof->Atras;
+					}
+				}
+			}
+			else
+			{
+				if (col->AVL != NULL)
+				{
+					NodoArbol * aux = (objetoArbol->Buscar(prof->AVL, ident));
+					NodoArbol * aux2 = objetoArbol->devolverAux();
+					if ((aux != NULL) && (aux2 != NULL))
+					{
+						string id_trans;
+						string id = ident;
+						string activo;
+						string desc;
+						string usuario;
+						string dep;
+						string emp;
+						int dia = dias;
+						#define LONGITUD_DESEADA 15
+						char destino[LONGITUD_DESEADA + 1] = "";
+						cadaleatoria(LONGITUD_DESEADA, destino);
+						id_trans = destino;
+						activo = aux->nombre;
+						desc = aux->des;
+						aux->disponibilidad = 0;
+						usuario = col->nombre;
+						dep = colaux->nombre;
+						emp = fila->nombre;
+						objetoLista->insertar(id_trans, id, activo, desc, usuario, dep, emp, dia);
+						cout << "Insertado con exito";
+						system("pause");
+						break;
+					}
+				}
+				else
+				{
+					col = col->Siguiente;
+				}
+			}
+
+		}
+
+		fila = fila->Abajo;
+	}
+}
 //Metodo para convertir de mayusculas a minusculas
 
 string Matriz::comparar(string usuario)
@@ -557,4 +658,18 @@ string Matriz::comparar(string usuario)
 	});
 
 	return usuario;
+}
+
+//generar aleatoriamente strings
+
+int Matriz::rangoaleatorio(int min, int max) {
+	return min + rand() / (RAND_MAX / (max - min + 1) + 1);
+}
+
+void Matriz::cadaleatoria(int Longitud, char *Destino) {
+	char Muestra[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+	for (int x = 0; x < Longitud; x++) {
+		int indiceAleatorio = rangoaleatorio(0, (int)strlen(Muestra) - 1);
+		Destino[x] = Muestra[indiceAleatorio];
+	}
 }

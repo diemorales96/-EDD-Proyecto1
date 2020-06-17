@@ -28,7 +28,12 @@ public:
 
 	NodoMatriz* Buscarusuario(string usuario,string contrasena,string departamento,string empresa);
 	void Buscarusuario(string);
-
+	
+	void Renta(string,int);
 	string comparar(string);
+
+
+	void cadaleatoria(int , char *);
+	int rangoaleatorio(int , int );
 };
 

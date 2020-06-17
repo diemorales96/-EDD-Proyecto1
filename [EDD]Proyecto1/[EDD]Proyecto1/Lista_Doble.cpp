@@ -4,9 +4,9 @@
 
 using namespace std;
 
-void Lista_Doble::insertar(string id_transaccion, string id_activo_, string usuario, string departamento, string empresa, string fecha, int dias)
+void Lista_Doble::insertar(string id_transaccion, string id_activo,string activo,string des, string usuario, string departamento, string empresa, int dias)
 {
-	Nodo_Lista* nuevo = new Nodo_Lista(id_transaccion,id_activo_,usuario,departamento,empresa,fecha ,dias);
+	Nodo_Lista* nuevo = new Nodo_Lista(id_transaccion,id_activo,activo,des,usuario,departamento,empresa ,dias);
 
 	if (tamaniolista == 0)
 	{

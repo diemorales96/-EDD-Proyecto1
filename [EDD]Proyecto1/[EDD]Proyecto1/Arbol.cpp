@@ -4,6 +4,9 @@
 #include <string>
 
 using namespace std;
+
+
+NodoArbol * aux = NULL;
 NodoArbol* Arbol::crearNodo(string id,string nombre,string des, NodoArbol *padre)
 {
 	NodoArbol* nuevo = new NodoArbol();
@@ -140,22 +143,29 @@ NodoArbol *Arbol::Buscar(NodoArbol *arbol, string id)
 		else if (id == arbol->id)
 		{
 			cout << "Elemento encontrado\n";
+			aux = arbol;
 			return arbol;
+			
 		}
 	}
 	else
 	{
-		cout << "Activo no encontrado";
-		return NULL;
+		aux = NULL;
+		return arbol;
 	}
+}
+
+NodoArbol* Arbol::devolverAux()
+{
+	return aux;
 }
 
 void Arbol::Modificar(NodoArbol *& arbol, string id, string descripcion)
 {
 	if (arbol != NULL)
 	{
-		NodoArbol * aux;
-		aux = Buscar(arbol, id);
+		
+		Buscar(arbol, id);
 		if (aux != NULL)
 		{
 			aux->des = descripcion;

@@ -46,5 +46,3 @@ Filab2->Na2_Fb2 [dir = both];
 {rank = same; Filab2; Na2_Fb2;  };
 
 }
-
-}
