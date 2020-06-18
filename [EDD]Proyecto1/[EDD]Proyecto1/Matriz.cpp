@@ -366,14 +366,14 @@ void Matriz::generarDot(FILE *file,NodoMatriz *n)
 		label += "//E N L A C E S  F I L A   " + filaaux->nombre + "\n";
 		col = fila->Siguiente;
 		while (col != NULL) {
-			//escribir ej: fila0->A0_F0[dir = both];
-			if (fila->Arriba == cabecera) { //Si es la primera fila
-				//El nodo de arriba es un HEADER de columna, se enlaza.
+
+			if (fila->Arriba == cabecera) { 
+
 				label += "Column" + col->Arriba->nombre + "->N" + col->Arriba->nombre + "_F" + filaaux->nombre;
 				label += " [dir = both];\n";
 			}
 			else {
-				//Enlaza con el Nodo de arriba
+
 
 				if (col->Arriba->numero == -1) {
 					colaux = col;
@@ -393,9 +393,8 @@ void Matriz::generarDot(FILE *file,NodoMatriz *n)
 					label += " [dir = both];\n";
 				}
 			}
-			if (col->Anterior == fila) { //Si es el primer nodo
-				//Enlazar con cabecera de fila
-				//escribir ej: Hora6->A0_F6[dir = both];
+			if (col->Anterior == fila) {
+
 				colaux = col;
 				while (colaux->Arriba != NULL) {
 					colaux = colaux->Arriba;
@@ -411,8 +410,7 @@ void Matriz::generarDot(FILE *file,NodoMatriz *n)
 			}
 			
 			if (col->Siguiente != NULL) {
-				//Si existe un nodo a la derecha, Enlazarlo con el actual.
-				//escribir ej: N1_L0->N2_L0[dir = both]; //Derecha
+
 				colaux2 = col->Siguiente;
 				while (colaux2->Arriba != NULL) {
 					colaux2 = colaux2->Arriba;
@@ -603,6 +601,7 @@ NodoMatriz * Matriz::Renta(string ident)
 				{
 					col = col->Siguiente;
 				}
+				col = col->Siguiente;
 			}
 
 		}

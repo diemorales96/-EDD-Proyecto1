@@ -191,4 +191,14 @@ void Arbol::preorden(NodoArbol *temp)
 	}
 }
 
-
+void Arbol::preordenRentados(NodoArbol *temp)
+{
+	if (temp != NULL)
+	{
+		if (temp->disponibilidad == 0) {
+			cout << ">> ID = " << temp->id << " Nombre = " << temp->nombre << "\n";
+		}
+		preordenRentados(temp->izq);
+		preordenRentados(temp->der);
+	}
+}

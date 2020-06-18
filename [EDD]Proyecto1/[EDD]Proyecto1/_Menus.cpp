@@ -21,6 +21,7 @@ Lista_Doble * ObjetoLista = new Lista_Doble();
 NodoMatriz* A;
 NodoArbol * B;
 Nodo_Lista *aux3 = NULL;
+bool descendente = false;
 void _Menus::MenuPrincipal() 
 {
 	int opcion = 0;
@@ -28,7 +29,7 @@ void _Menus::MenuPrincipal()
 		system("cls");
 		cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Renta de Activos %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n";
 		cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 1. Iniciar Sesion  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n";
-		cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     2. Sarli       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl << endl;
+		cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     2. Salir       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl << endl;
 		cout << " >> Ingrese Opcion\n >> ";
 		cin >> opcion;
 		switch (opcion) {
@@ -54,7 +55,7 @@ void _Menus::MenuLogin()
 	string contrasena;
 	string departamento;
 	string empresa;
-
+	
 
 	cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Renta de Activos %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n";
 	cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	 Login	      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n" << endl <<" >> ...";
@@ -102,6 +103,7 @@ void _Menus::Menuadmin()
 	cout << ">> %% 9. Cerrar sesion" << endl;
 	cout << "Ingrese opcion\n >>";
 	int opcion = 0;
+	
 	cin >> opcion;
 
 	switch (opcion)
@@ -119,16 +121,74 @@ void _Menus::Menuadmin()
 	}
 	case 3:
 	{
-
+		Menuadmin();
+		break;
 	}
 	case 4:
 	{
-		ObjetoLista->graficar();
+		break;
 		Menuadmin();
+	}
+	case 5:
+	{
+		if (descendente == false)
+		{
+			ObjetoLista->graficar();
+			Menuadmin();
+		}
+		else
+		{
+			ObjetoLista->graficades();
+			Menuadmin();
+		}
+		break;
+	}
+	case 6:
+	{
+		break;
+		Menuadmin();
+	}
+	case 7:
+	{
+		int us;
+		cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Activos por Usuario %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n";
+		cin >> us;
+
+		Menuadmin();
+		break;
+	}
+	case 8:
+	{
+		int opc;
+		cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Ordenar %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n";
+		cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 1. Ascendente %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n";
+		cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 2. Descendente %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n";
+
+		
+		cout << "Ingrese Opcion: \n";
+		cin >> opc;
+		switch (opc) {
+		case 1:
+		{
+			descendente = false;
+			break;
+		}
+		case 2:
+		{
+			descendente = true;
+			break;
+		}
+
+		}
+		{
+		default:
+			break;
+		}
 	}
 	case 9:
 	{
 		MenuLogin();
+		break;
 	}
 	}
 	system("pause");
@@ -308,7 +368,9 @@ void _Menus::MenuUsuario(string usuario,string contrasena,string dep,string emp)
 		}
 		case 6:
 		{
-
+			NodoMatriz *P;
+			P = Objeto->Buscarusuario(usuario,contrasena,dep,emp);
+			ObjetoArbol->preordenRentados(P->AVL);
 		}
 		}
 	} while (opcion != 7);

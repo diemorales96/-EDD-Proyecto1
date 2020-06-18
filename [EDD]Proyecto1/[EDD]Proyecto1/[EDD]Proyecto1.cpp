@@ -8,7 +8,7 @@ using namespace std;
 int main()
 {
 	_Menus inicio;
-	//inicio.MenuPrincipal();
-	inicio.MenuRegistro();
+	inicio.MenuPrincipal();
+	
 	return 0;
 }

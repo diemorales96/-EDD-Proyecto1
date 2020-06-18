@@ -19,5 +19,7 @@ public:
 	int tamanio();
 	void graficar();
 	void generarDot(FILE*,Nodo_Lista*);
+	void graficades();
+	void generardotdes(FILE*, Nodo_Lista*);
 };
 

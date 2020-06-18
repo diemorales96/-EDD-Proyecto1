@@ -18,13 +18,42 @@ void Lista_Doble::insertar(string id_transaccion, string id_activo,string activo
 	}
 	else
 	{
+
 		Nodo_Lista* ultimo = cabeza->Anterior;
-		nuevo->Siguiente = cabeza;
+		
+		/*nuevo->Siguiente = cabeza;
 		nuevo->Anterior = ultimo;
 		ultimo->Siguiente = nuevo;
 		cabeza->Anterior = nuevo;
 		ultimo = nuevo;
-		tamaniolista += 1;
+		tamaniolista += 1;*/
+		if (id_transaccion < cabeza->id_transaccion)
+		{
+			nuevo->Siguiente = cabeza;
+			nuevo->Anterior = ultimo;
+			ultimo->Siguiente = nuevo;
+			cabeza->Anterior = nuevo;
+		}
+		else if (id_transaccion > ultimo->id_transaccion)
+		{
+			ultimo->Siguiente = nuevo;
+			cabeza->Anterior = nuevo;
+			nuevo->Siguiente = cabeza;
+			nuevo->Anterior = ultimo;
+		}
+		else
+		{
+			Nodo_Lista *aux = cabeza;
+			do
+			{
+				if (aux->id_transaccion < id_transaccion && aux->Siguiente->id_transaccion >id_transaccion) {
+					aux->Siguiente->Anterior = nuevo;
+					nuevo->Siguiente = aux->Siguiente;
+					nuevo->Anterior = aux;
+					aux->Siguiente = nuevo;
+				}
+			} while (aux != cabeza);
+		}
 	}
 }
 
@@ -72,6 +101,7 @@ void Lista_Doble::graficar()
 	FILE * file;
 	file = fopen("ReporteTransacciones.dot","w+");
 	fprintf(file,"digraph Transacciones{\n");
+	fprintf(file, "node [shape=box]\ngraph[ranksep = \"0.5\", nodesep=\"0.6\"];\n");
 	generarDot(file,cabeza);
 
 	fprintf(file,"}");
@@ -87,11 +117,9 @@ void Lista_Doble::generarDot(FILE* file,Nodo_Lista* n)
 	if (aux == nullptr) return;
 	do
 	{
-		//Creacion de nodos
-		string label = aux->id_transaccion + "[lable=\""+aux->id_transaccion+" "+ aux->usuario+"\"];\n";
+		string label = aux->id_transaccion + "[label=\"Id : "+aux->id_transaccion+"&#92;nUsuario que rento:"+ aux->usuario+"\"];\n";
 		const char * clabel = label.c_str();
 		fprintf(file,clabel);
-		//Creacion de enlaces
 		string enlaces = aux->id_transaccion + "->" + aux->Siguiente->id_transaccion+"\n";
 		enlaces += aux->Siguiente->id_transaccion + "->" + aux->id_transaccion + "\n";
 		const char* cenlaces = enlaces.c_str();
@@ -100,4 +128,40 @@ void Lista_Doble::generarDot(FILE* file,Nodo_Lista* n)
 		
 		aux = aux->Siguiente;
 	} while (aux!=cabeza);
+}
+
+void Lista_Doble::graficades()
+{
+	FILE * file;
+	file = fopen("ReporteTransacciones.dot", "w+");
+	fprintf(file, "digraph Transacciones{\n");
+	fprintf(file, "node [shape=box]\ngraph[ranksep = \"0.5\", nodesep=\"0.6\"];\n");
+	generardotdes(file, cabeza);
+
+	fprintf(file, "}");
+	fclose(file);
+
+	system("dot -Tpng ReporteTransacciones.dot -o ReporteTransacciones.png");
+	system("start E:\\Materias\\EDD\\Proyectos\\[EDD]Proyecto1\\[EDD]Proyecto1\\ReporteTransacciones.png");
+}
+
+void Lista_Doble::generardotdes(FILE* file, Nodo_Lista* n)
+{
+	Nodo_Lista * aux = n->Anterior;
+	if (aux == nullptr) return;
+	do
+	{
+		
+		string label = aux->id_transaccion + "[labej=\"" + aux->id_transaccion + "&#92;n" + aux->usuario + "\"];\n";
+		const char * clabel = label.c_str();
+		fprintf(file, clabel);
+	
+		string enlaces = aux->id_transaccion + "->" + aux->Siguiente->id_transaccion + "\n";
+		enlaces += aux->Siguiente->id_transaccion + "->" + aux->id_transaccion + "\n";
+		const char* cenlaces = enlaces.c_str();
+
+		fprintf(file, cenlaces);
+
+		aux = aux->Siguiente;
+	} while (aux != cabeza->Anterior);
 }
