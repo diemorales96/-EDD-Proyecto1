@@ -1,6 +1,2 @@
-﻿  Lista_Doble.cpp
-  Matriz.cpp
-  _Menus.cpp
-  Generando código...
-e:\materias\edd\proyectos\[edd]proyecto1\[edd]proyecto1\matriz.cpp(612): warning C4715: 'Matriz::Renta': no todas las rutas de acceso de control devuelven un valor
+﻿  _Menus.cpp
   [EDD]Proyecto1.vcxproj -> E:\Materias\EDD\Proyectos\[EDD]Proyecto1\Debug\[EDD]Proyecto1.exe

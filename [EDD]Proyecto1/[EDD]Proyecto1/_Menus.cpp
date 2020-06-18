@@ -18,6 +18,8 @@ using namespace std;
 Matriz* Objeto = new Matriz();
 Arbol * ObjetoArbol = new Arbol();
 Lista_Doble * ObjetoLista = new Lista_Doble();
+NodoMatriz* A;
+NodoArbol * B;
 Nodo_Lista *aux3 = NULL;
 void _Menus::MenuPrincipal() 
 {
@@ -105,14 +107,29 @@ void _Menus::Menuadmin()
 	switch (opcion)
 	{
 	case 1:
+	{
 		MenuRegistro();
 		break;
+	}
 	case 2:
+	{
 		ReporteMDispersa();
 
 		break;
+	}
+	case 3:
+	{
+
+	}
+	case 4:
+	{
+		ObjetoLista->graficar();
+		Menuadmin();
+	}
 	case 9:
+	{
 		MenuLogin();
+	}
 	}
 	system("pause");
 }
@@ -229,9 +246,9 @@ void _Menus::MenuUsuario(string usuario,string contrasena,string dep,string emp)
 				cin >> id;
 				cout << "Ingrese numero de dias a rentar: \n";
 				cin >> dias;
-				NodoMatriz* A;
-				NodoArbol * B;
+				
 				string id_trans;
+
 				A = Objeto->Renta(id);
 				ObjetoArbol->Buscar(A->AVL,id);
 				B = ObjetoArbol->devolverAux();
@@ -241,7 +258,8 @@ void _Menus::MenuUsuario(string usuario,string contrasena,string dep,string emp)
 				cadaleatoria(LONGITUD_DESEADA, destino);
 				id_trans = destino;
 
-				ObjetoLista->insertar(id_trans,B->id,B->nombre,B->des,usuario,dep,emp,dias);
+				ObjetoLista->insertar(id_trans,B->id,B->nombre,B->des,usuario,dep,emp,dias,true);
+				system("pause");
 				MenuUsuario(usuario, contrasena, dep, emp);
 			}
 			case 2:
@@ -257,7 +275,9 @@ void _Menus::MenuUsuario(string usuario,string contrasena,string dep,string emp)
 			system("cls");
 			int opc2 = 0;
 			cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 1. Activos Rentados %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n";
+			
 			ObjetoLista->Mostrar(usuario);
+
 			cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 1. Registrar Devolucion %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n";
 			cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 2. Regresar al menu %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n";
 
@@ -265,10 +285,29 @@ void _Menus::MenuUsuario(string usuario,string contrasena,string dep,string emp)
 			cin >> opc2;
 			switch (opc2)
 			{
+			case 1:
+			{
+				cout << "Ingrese Activo a devolver: \n";
+				cin >> id;
+				Nodo_Lista*L;
+				L = ObjetoLista->Buscar(id,usuario);
+				L->disp = false;
+				A = Objeto->Renta(id);
+				ObjetoArbol->Buscar(A->AVL, id);
+				B = ObjetoArbol->devolverAux();
+				B->disponibilidad = 1;
+				MenuUsuario(usuario, contrasena, dep, emp);
+				break;
+			}
 			case 2:
 				MenuUsuario(usuario, contrasena, dep, emp);
+				break;
 			}
 			
+
+		}
+		case 6:
+		{
 
 		}
 		}

@@ -17,8 +17,9 @@ public:
 	string activo;
 	string des;
 	int dias;
+	bool disp;
 	
-	Nodo_Lista(string id_transaccion, string id_activo,string activo ,string des, string usuario, string departamento, string empresa, int dias) 
+	Nodo_Lista(string id_transaccion, string id_activo,string activo ,string des, string usuario, string departamento, string empresa, int dias,bool disp) 
 	{
 		Siguiente = nullptr;
 		Anterior = nullptr;
@@ -28,7 +29,7 @@ public:
 		this->activo = activo;
 		this->des = des;
 		this->usuario = usuario;
-	
+		this->disp = disp;
 		this->departamento = departamento;
 		this->empresa = empresa;
 		this->dias = dias;

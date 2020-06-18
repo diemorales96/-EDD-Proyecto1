@@ -1,0 +1,11 @@
+digraph Transacciones{
+iCo2mW100Lyqs1b[lable="iCo2mW100Lyqs1b p2"];
+iCo2mW100Lyqs1b->xfPda5rqKQZTEmU
+xfPda5rqKQZTEmU->iCo2mW100Lyqs1b
+xfPda5rqKQZTEmU[lable="xfPda5rqKQZTEmU p2"];
+xfPda5rqKQZTEmU->DC7UgLxTLJwjnAX
+DC7UgLxTLJwjnAX->xfPda5rqKQZTEmU
+DC7UgLxTLJwjnAX[lable="DC7UgLxTLJwjnAX p2"];
+DC7UgLxTLJwjnAX->iCo2mW100Lyqs1b
+iCo2mW100Lyqs1b->DC7UgLxTLJwjnAX
+}

@@ -13,9 +13,11 @@ public:
 		this -> cabeza = nullptr;
 		this->tamaniolista = 0;
 	}
-	void insertar(string ,string ,string ,string,string ,string ,string ,int );
+	void insertar(string ,string ,string ,string,string ,string ,string ,int,bool );
 	void Mostrar(string);
+	Nodo_Lista * Buscar(string,string);
 	int tamanio();
-	
+	void graficar();
+	void generarDot(FILE*,Nodo_Lista*);
 };
 
