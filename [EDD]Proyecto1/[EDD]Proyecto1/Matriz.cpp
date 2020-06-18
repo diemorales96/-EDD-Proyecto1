@@ -6,6 +6,7 @@
 #include <algorithm>
 #include "Arbol.h"
 #include "Lista_Doble.h"
+
 using namespace std;
 Arbol *objetoArbol = new Arbol();
 Lista_Doble *objetoLista = new Lista_Doble();
@@ -549,7 +550,7 @@ void Matriz::Buscarusuario(string usuario)
 	
 }
 
-void Matriz::Renta(string ident, int dias)
+NodoMatriz * Matriz::Renta(string ident)
 {
 	NodoMatriz* fila = cabecera->Abajo;
 
@@ -574,29 +575,9 @@ void Matriz::Renta(string ident, int dias)
 					{
 						NodoArbol * aux = (objetoArbol->Buscar(prof->AVL, ident));
 						NodoArbol * aux2 = objetoArbol->devolverAux();
-						if ((aux!= NULL) && (aux2 !=NULL))
+						if ((aux2 !=NULL))
 						{
-							string id_trans;
-							string id = ident;
-							string activo;
-							string desc;
-							string usuario;
-							string dep;
-							string emp;
-							int dia = dias;
-							#define LONGITUD_DESEADA 15
-							char destino[LONGITUD_DESEADA + 1] = "";
-							cadaleatoria(LONGITUD_DESEADA, destino);
-							id_trans = destino;
-							activo = aux->nombre;
-							desc = aux->des;
-							aux->disponibilidad = 0;
-							usuario = prof->nombre;
-							dep = colaux->nombre;
-							emp = fila->nombre;
-							objetoLista->insertar(id_trans,id,activo,desc,usuario,dep,emp,dia);
-							cout << "Insertado con exito";
-							system("pause");
+							return prof;
 							break;
 						}
 					}
@@ -612,29 +593,9 @@ void Matriz::Renta(string ident, int dias)
 				{
 					NodoArbol * aux = (objetoArbol->Buscar(prof->AVL, ident));
 					NodoArbol * aux2 = objetoArbol->devolverAux();
-					if ((aux != NULL) && (aux2 != NULL))
+					if ((aux2 != NULL))
 					{
-						string id_trans;
-						string id = ident;
-						string activo;
-						string desc;
-						string usuario;
-						string dep;
-						string emp;
-						int dia = dias;
-						#define LONGITUD_DESEADA 15
-						char destino[LONGITUD_DESEADA + 1] = "";
-						cadaleatoria(LONGITUD_DESEADA, destino);
-						id_trans = destino;
-						activo = aux->nombre;
-						desc = aux->des;
-						aux->disponibilidad = 0;
-						usuario = col->nombre;
-						dep = colaux->nombre;
-						emp = fila->nombre;
-						objetoLista->insertar(id_trans, id, activo, desc, usuario, dep, emp, dia);
-						cout << "Insertado con exito";
-						system("pause");
+						return col;
 						break;
 					}
 				}

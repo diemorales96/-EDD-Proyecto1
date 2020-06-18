@@ -14,8 +14,8 @@ public:
 		this->tamaniolista = 0;
 	}
 	void insertar(string ,string ,string ,string,string ,string ,string ,int );
-	void Mostrar();
+	void Mostrar(string);
 	int tamanio();
-
+	
 };
 

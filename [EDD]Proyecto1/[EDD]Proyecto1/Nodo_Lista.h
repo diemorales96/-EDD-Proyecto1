@@ -11,6 +11,7 @@ public:
 	string id_transaccion;
 	string id_activo;
 	string usuario;
+
 	string departamento;
 	string empresa;
 	string activo;
@@ -27,8 +28,10 @@ public:
 		this->activo = activo;
 		this->des = des;
 		this->usuario = usuario;
+	
 		this->departamento = departamento;
 		this->empresa = empresa;
 		this->dias = dias;
+		
 	}
 };

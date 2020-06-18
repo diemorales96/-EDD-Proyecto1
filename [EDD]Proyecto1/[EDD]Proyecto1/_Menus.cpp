@@ -17,7 +17,8 @@ using namespace std;
 
 Matriz* Objeto = new Matriz();
 Arbol * ObjetoArbol = new Arbol();
-
+Lista_Doble * ObjetoLista = new Lista_Doble();
+Nodo_Lista *aux3 = NULL;
 void _Menus::MenuPrincipal() 
 {
 	int opcion = 0;
@@ -197,12 +198,12 @@ void _Menus::MenuUsuario(string usuario,string contrasena,string dep,string emp)
 		case 3:
 		{
 			system("cls");
-			cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Modificar Activo %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n";
+			cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Modificar Activo %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n";
 			ObjetoArbol->preorden(aux->AVL);
 			cout << "\nIngrese id del activo: \n";
 			cin >> id;
 			system("cls");
-			cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Modificando Activo %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n";
+			cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Modificando Activo %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n";
 
 			cout << "\nIngrese nueva descripcion del activo: \n";
 			cin >> des;
@@ -215,8 +216,8 @@ void _Menus::MenuUsuario(string usuario,string contrasena,string dep,string emp)
 			system("cls");
 			Objeto->Buscarusuario(usuario);
 			int opcion2 = 0;
-			cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 1. Rentar Activo %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n";
-			cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 2. Regresar al menu %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n";
+			cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 1. Rentar Activo %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n";
+			cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 2. Regresar al menu %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n";
 			cout << "Ingrese Opcion: \n";
 			cin >> opcion2;
 			switch (opcion2)
@@ -228,7 +229,19 @@ void _Menus::MenuUsuario(string usuario,string contrasena,string dep,string emp)
 				cin >> id;
 				cout << "Ingrese numero de dias a rentar: \n";
 				cin >> dias;
-				Objeto->Renta(id,dias);
+				NodoMatriz* A;
+				NodoArbol * B;
+				string id_trans;
+				A = Objeto->Renta(id);
+				ObjetoArbol->Buscar(A->AVL,id);
+				B = ObjetoArbol->devolverAux();
+				B->disponibilidad = 0;
+				#define LONGITUD_DESEADA 15
+				char destino[LONGITUD_DESEADA + 1] = "";
+				cadaleatoria(LONGITUD_DESEADA, destino);
+				id_trans = destino;
+
+				ObjetoLista->insertar(id_trans,B->id,B->nombre,B->des,usuario,dep,emp,dias);
 				MenuUsuario(usuario, contrasena, dep, emp);
 			}
 			case 2:
@@ -238,6 +251,25 @@ void _Menus::MenuUsuario(string usuario,string contrasena,string dep,string emp)
 			}
 
 			system("pause");
+		}
+		case 5:
+		{
+			system("cls");
+			int opc2 = 0;
+			cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 1. Activos Rentados %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n";
+			ObjetoLista->Mostrar(usuario);
+			cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 1. Registrar Devolucion %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n";
+			cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 2. Regresar al menu %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n";
+
+			cout << "Ingrese Opcion: \n";
+			cin >> opc2;
+			switch (opc2)
+			{
+			case 2:
+				MenuUsuario(usuario, contrasena, dep, emp);
+			}
+			
+
 		}
 		}
 	} while (opcion != 7);

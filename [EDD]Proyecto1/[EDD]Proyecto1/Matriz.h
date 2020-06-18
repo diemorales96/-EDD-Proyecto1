@@ -29,7 +29,7 @@ public:
 	NodoMatriz* Buscarusuario(string usuario,string contrasena,string departamento,string empresa);
 	void Buscarusuario(string);
 	
-	void Renta(string,int);
+	NodoMatriz * Renta(string);
 	string comparar(string);
 
 
