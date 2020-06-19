@@ -1,12 +1,10 @@
 digraph Transacciones{
 node [shape=box]
 graph[ranksep = "0.5", nodesep="0.6"];
-iCo2mW100Lyqs1b[lable="iCo2mW100Lyqs1b 
-p2"];
-iCo2mW100Lyqs1b->xfPda5rqKQZTEmU
-xfPda5rqKQZTEmU->iCo2mW100Lyqs1b
-xfPda5rqKQZTEmU[lable="xfPda5rqKQZTEmU 
-p1"];
-xfPda5rqKQZTEmU->iCo2mW100Lyqs1b
-iCo2mW100Lyqs1b->xfPda5rqKQZTEmU
+DC7UgLxTLJwjnAX[labej="DC7UgLxTLJwjnAX&#92;np1"];
+DC7UgLxTLJwjnAX->iCo2mW100Lyqs1b
+iCo2mW100Lyqs1b->DC7UgLxTLJwjnAX
+iCo2mW100Lyqs1b[labej="iCo2mW100Lyqs1b&#92;np2"];
+iCo2mW100Lyqs1b->DC7UgLxTLJwjnAX
+DC7UgLxTLJwjnAX->iCo2mW100Lyqs1b
 }

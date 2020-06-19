@@ -371,6 +371,10 @@ void _Menus::MenuUsuario(string usuario,string contrasena,string dep,string emp)
 			NodoMatriz *P;
 			P = Objeto->Buscarusuario(usuario,contrasena,dep,emp);
 			ObjetoArbol->preordenRentados(P->AVL);
+			system("pause");
+			MenuUsuario(usuario, contrasena, dep, emp);
+			break;
+
 		}
 		}
 	} while (opcion != 7);
